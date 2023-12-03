@@ -7,53 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'aoc2023'",
-            "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--lib",
-                    "--package=aoc2023"
-                ],
-                "filter": {
-                    "name": "aoc2023",
-                    "kind": "lib"
-                }
-            },
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug executable '1'",
+            "name": "Debug executable",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=1",
+                    "--bin=2",
                     "--package=aoc2023"
                 ],
                 "filter": {
-                    "name": "1",
-                    "kind": "bin"
-                }
-            },
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug unit tests in executable '1'",
-            "cargo": {
-                "args": [
-                    "test",
-                    "--no-run",
-                    "--bin=1",
-                    "--package=aoc2023"
-                ],
-                "filter": {
-                    "name": "1",
+                    "name": "2",
                     "kind": "bin"
                 }
             },
