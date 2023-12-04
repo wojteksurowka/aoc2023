@@ -67,5 +67,5 @@ fn power(game: &Game) -> usize {
 pub fn part2() {
     let games: Vec<Game> = input_lines(file!()).iter().map(read_game).collect();
     let sum: usize = games.iter().map(power).sum();
-    println!("{:?}", sum)
+    println!("{sum}")
 }
