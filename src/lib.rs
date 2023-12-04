@@ -26,3 +26,7 @@ pub fn regex_groups(regex: &str, input: &str) -> Vec<String> {
     let re = Regex::new(regex).unwrap();
     re.captures(input).map(|c| (1..c.len()).map(|i| c.get(i).unwrap().as_str().to_string()).collect()).unwrap()
 }
+
+pub fn integers(s: &str) -> Vec<i32> {
+    s.split(' ').filter(|n| n.len() > 0).map(|n| n.trim().parse::<i32>().unwrap()).collect::<Vec<i32>>()
+}
