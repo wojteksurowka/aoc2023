@@ -1,4 +1,4 @@
-use aoc2023::{input_lines, regex_groups, integers64};
+use aoc2023::{input_lines, regex_groups, integers};
 
 fn main() {
     part2()
@@ -6,14 +6,14 @@ fn main() {
 
 pub fn part1() {
     let mut lines = input_lines(file!());
-    let seeds = integers64(&regex_groups(r"seeds: (.+)$", &lines.remove(0))[0]);
+    let seeds = integers(&regex_groups(r"seeds: (.+)$", &lines.remove(0))[0]);
     let mut maps: Vec<Vec<(i64, i64, i64)>> = Vec::new();
     for line in lines {
         if line.ends_with("map:") {
             maps.push(Vec::new())
         }
         else if !line.is_empty() {
-            let dsl = integers64(&line);
+            let dsl = integers(&line);
             let last = maps.len() - 1;
             maps[last].push((dsl[0], dsl[1], dsl[2]));
         }
@@ -23,14 +23,14 @@ pub fn part1() {
 
 pub fn part2() {
     let mut lines = input_lines(file!());
-    let seeds = integers64(&regex_groups(r"seeds: (.+)$", &lines.remove(0))[0]);
+    let seeds = integers(&regex_groups(r"seeds: (.+)$", &lines.remove(0))[0]);
     let mut maps: Vec<Vec<(i64, i64, i64)>> = Vec::new();
     for line in lines {
         if line.ends_with("map:") {
             maps.push(Vec::new())
         }
         else if !line.is_empty() {
-            let dsl = integers64(&line);
+            let dsl = integers(&line);
             let last = maps.len() - 1;
             maps[last].push((dsl[0], dsl[1], dsl[2]));
         }

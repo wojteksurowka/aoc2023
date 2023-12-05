@@ -1,6 +1,7 @@
 use std::path::Path;
 use std::fs::read_to_string;
 use regex::Regex;
+use std::str::FromStr;
 
 pub fn input_lines(filename: &str) -> Vec<String> {
     get_input_lines(filename).unwrap_or_default()
@@ -27,10 +28,6 @@ pub fn regex_groups(regex: &str, input: &str) -> Vec<String> {
     re.captures(input).map(|c| (1..c.len()).map(|i| c.get(i).unwrap().as_str().to_string()).collect()).unwrap()
 }
 
-pub fn integers(s: &str) -> Vec<i32> {
-    s.split(' ').filter(|n| n.len() > 0).map(|n| n.trim().parse::<i32>().unwrap()).collect::<Vec<i32>>()
-}
-
-pub fn integers64(s: &str) -> Vec<i64> {
-    s.split(' ').filter(|n| n.len() > 0).map(|n| n.trim().parse::<i64>().unwrap()).collect::<Vec<i64>>()
+pub fn integers<T: FromStr>(s: &str) -> Vec<T> {
+    s.split(' ').filter(|n| n.len() > 0).filter_map(|n| n.trim().parse().ok()).collect()
 }
