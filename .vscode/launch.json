@@ -11,11 +11,11 @@
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=4",
+                    "--bin=5",
                     "--package=aoc2023"
                 ],
                 "filter": {
-                    "name": "4",
+                    "name": "5",
                     "kind": "bin"
                 }
             },

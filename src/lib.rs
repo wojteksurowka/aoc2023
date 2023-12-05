@@ -30,3 +30,7 @@ pub fn regex_groups(regex: &str, input: &str) -> Vec<String> {
 pub fn integers(s: &str) -> Vec<i32> {
     s.split(' ').filter(|n| n.len() > 0).map(|n| n.trim().parse::<i32>().unwrap()).collect::<Vec<i32>>()
 }
+
+pub fn integers64(s: &str) -> Vec<i64> {
+    s.split(' ').filter(|n| n.len() > 0).map(|n| n.trim().parse::<i64>().unwrap()).collect::<Vec<i64>>()
+}
