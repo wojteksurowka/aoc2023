@@ -8,4 +8,5 @@ name = "aoc2023"
 path = "src/lib.rs"
 
 [dependencies]
+num-integer = "0.1.45"
 regex = "1.10.2"
