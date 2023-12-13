@@ -1,34 +1,60 @@
 use aoc2023::input_lines;
+use std::collections::HashMap;
 
 fn main() {
-    part1()
+    unsafe {
+        part2()
+    }
 }
 
-pub fn part1() {
-    let result = read_data().iter().map(|(c, l)| search(c, l)).sum::<usize>();
+pub unsafe fn part1() {
+    let result = read_data().iter().map(|(c, l)| search(c, 0, l, &mut HashMap::new())).sum::<usize>();
     println!("{}", result)
 }
 
-fn search(s: &str, lengths: &[usize]) -> usize {
-    let mut total = 0;
-    let first_starts = search_one(s, lengths[0]);
-    for start in first_starts {
-        if lengths.len() == 1 {
-            if s[start + lengths[0]..].chars().all(|c| c != '#') {
-                total += 1
-            }
-        }
-        else {
-            if start + lengths[0] + 1 < s.len() {
-                let rests = search(&s[start + lengths[0] + 1..], &lengths[1..]);
-                total += rests;
-            }
-        }
-    }
-    total
+pub unsafe fn part2() {
+    let result = read_data().iter().map(|(c, l)| search(&duplicate_string_5(c.to_string()), 0, &duplicate_5(l.to_vec()), &mut HashMap::new())).sum::<usize>();
+    println!("{}", result)
 }
 
-fn search_one(s: &str, length: usize) -> Vec<usize> {
+fn duplicate_string_5(mut s: String) -> String {
+    println!("HERE");
+    s.push('?');
+    let mut result = s.repeat(5);
+    result.truncate(result.len() - 1);
+    result
+}
+
+fn duplicate_5(v : Vec<usize>) -> Vec<usize> {
+    [&v[..], &v[..], &v[..], &v[..], &v[..]].concat()
+}
+
+unsafe fn search<'lens>(s: &str, offset: usize, lengths: &'lens [usize], cache: &mut HashMap<(usize, &'lens [usize]), usize>) -> usize {
+    match cache.get(&(offset, lengths)) {
+        Some(result) =>
+            *result,
+        None => {
+            let mut total = 0;
+            let starts = search_one_sum(&s[offset..], lengths[0]);
+            for start in starts {
+                if lengths.len() == 1 {
+                    if s[offset + start + lengths[0]..].chars().all(|c| c != '#') {
+                        total += 1
+                    }
+                }
+                else {
+                    if offset + start + lengths[0] + 1 < s.len() {
+                        total += search(s, offset + start + lengths[0] + 1, &lengths[1..], cache)
+                    }
+                }
+            }
+            cache.insert((offset, lengths), total);
+            total
+        }
+    }
+}
+
+fn search_one_sum(s: &str, length: usize) -> Vec<usize> {
     let mut result: Vec<usize> = Vec::new();
     if length <= s.len() {
         for i in 0..=s.len() - length as usize {
