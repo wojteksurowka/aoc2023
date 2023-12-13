@@ -18,7 +18,6 @@ pub unsafe fn part2() {
 }
 
 fn duplicate_string_5(mut s: String) -> String {
-    println!("HERE");
     s.push('?');
     let mut result = s.repeat(5);
     result.truncate(result.len() - 1);
