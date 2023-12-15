@@ -1,4 +1,4 @@
-use aoc2023::input_lines;
+use aoc2023::{input_lines, transpose};
 
 fn main() {
     part2()
@@ -23,7 +23,7 @@ fn calculate(expand_factor: usize) -> usize {
         }
     }
     let empty_rows: Vec<usize> = image.iter().enumerate().filter(|(_y, row)| !row.contains(&'#')).map(|(y, _row)| y).collect();
-    let empty_columns: Vec<usize> = transpose(image).into_iter().enumerate().filter(|(_x, row)| !row.contains(&'#')).map(|(x, _row)| x).collect();
+    let empty_columns: Vec<usize> = transpose(&image).into_iter().enumerate().filter(|(_x, row)| !row.contains(&'#')).map(|(x, _row)| x).collect();
     let expanded_galaxies: Vec<(usize, usize)> = galaxies.into_iter().map(|(x, y)| {
         let empty_rows_before = empty_rows.iter().filter(|r| r < &&y).count();
         let empty_columns_before = empty_columns.iter().filter(|c| c < &&x).count();
@@ -48,18 +48,4 @@ fn read() -> Vec<Vec<char>> {
         image.push(line.chars().collect());
     }
     image
-}
-
-fn transpose(matrix: Vec<Vec<char>>) -> Vec<Vec<char>> {
-    let width = matrix[0].len();
-    let mut transposed: Vec<Vec<char>> = Vec::new();
-    let mut row_to_clone: Vec<char> = Vec::new();
-    row_to_clone.resize(matrix.len(), 0 as char);
-    transposed.resize(width, row_to_clone);
-    for y in 0..matrix.len() {
-        for x in 0..width {
-            transposed[x][y] = matrix[y][x];
-        }
-    }
-    transposed
 }

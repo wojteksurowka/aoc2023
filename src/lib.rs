@@ -31,3 +31,17 @@ pub fn regex_groups(regex: &str, input: &str) -> Vec<String> {
 pub fn integers<T: FromStr>(s: &str) -> Vec<T> {
     s.split(' ').filter(|n| n.len() > 0).filter_map(|n| n.trim().parse().ok()).collect()
 }
+
+pub fn transpose(matrix: &Vec<Vec<char>>) -> Vec<Vec<char>> {
+    let width = matrix[0].len();
+    let mut transposed: Vec<Vec<char>> = Vec::new();
+    let mut row_to_clone: Vec<char> = Vec::new();
+    row_to_clone.resize(matrix.len(), 0 as char);
+    transposed.resize(width, row_to_clone);
+    for y in 0..matrix.len() {
+        for x in 0..width {
+            transposed[x][y] = matrix[y][x];
+        }
+    }
+    transposed
+}
