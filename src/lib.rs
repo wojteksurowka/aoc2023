@@ -45,3 +45,9 @@ pub fn transpose(matrix: &Vec<Vec<char>>) -> Vec<Vec<char>> {
     }
     transposed
 }
+
+pub fn print(pattern: &Vec<Vec<char>>) {
+    for y in 0..pattern.len() {
+        println!("{}", pattern[y].iter().collect::<String>());
+    }
+}
